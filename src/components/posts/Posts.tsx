@@ -22,8 +22,6 @@ export const Posts: FC = () => {
         const getDataApi = async (searchProps: Pick<IApiProps, '_limit'>) => {
             const data = await getApiArticlesSearch(searchProps)
 
-            console.log(data)
-
             if (data && data.length > 0) {
                 setArticles(data)
             }
