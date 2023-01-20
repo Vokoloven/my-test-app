@@ -1,13 +1,16 @@
 {
   "files": {
     "main.css": "/my-test-app/static/css/main.e6c13ad2.css",
-    "main.js": "/my-test-app/static/js/main.207aec0b.js",
+    "main.js": "/my-test-app/static/js/main.a8054de8.js",
+    "static/media/backToHomepage.svg": "/my-test-app/static/media/backToHomepage.886083cb1ec4b46cf91872e19ffc113b.svg",
+    "static/media/readMore.svg": "/my-test-app/static/media/readMore.ea04f8e42413973919162b91e882d5c1.svg",
     "index.html": "/my-test-app/index.html",
+    "static/media/calendarIcon.svg": "/my-test-app/static/media/calendarIcon.23d40ea0b0f66db921d8f647039ab1fc.svg",
     "main.e6c13ad2.css.map": "/my-test-app/static/css/main.e6c13ad2.css.map",
-    "main.207aec0b.js.map": "/my-test-app/static/js/main.207aec0b.js.map"
+    "main.a8054de8.js.map": "/my-test-app/static/js/main.a8054de8.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.207aec0b.js"
+    "static/js/main.a8054de8.js"
   ]
 }
