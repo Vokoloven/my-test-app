@@ -8,7 +8,7 @@ export const Result: FC = () => {
 
     return (
         <Box mt={34} borderBottom={'1px solid #EAEAEA'}>
-            {resultPerPage > 0 && (
+            {resultPerPage >= 0 && (
                 <Box as={'p'} fontWeight={600} fontSize={2} pb={'5px'}>
                     Result: {resultPerPage}
                 </Box>

@@ -11,6 +11,6 @@ export const StyledSpanLabel = styled('span')`
     font-size: 16px;
     line-height: 20px;
 
-    color: '#575757';
+    color: ${(p) => p.theme.colors.additional};
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 `
