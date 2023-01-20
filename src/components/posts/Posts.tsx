@@ -6,80 +6,37 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectSearch } from 'redux/selectors/selectSearch'
 import { IApiProps } from 'types/props'
 import { MultiActionAreaCard } from './Card'
-import { resultPerPage } from 'redux/searchArticlesSlice/searchArticlesSlice'
+import { Filter } from 'components/filter/Filter'
+import { Box } from 'theme/Box'
 
 export const Posts: FC = () => {
     const [articles, setArticles] = useState<IArticles[]>([])
-    const [filteredArt, setFilteredArt] = useState<IArticles[]>([])
-
-    const { search, itemsPerPage } = useSelector(selectSearch)
+    const { itemsPerPage } = useSelector(selectSearch)
     const dispatch = useDispatch()
 
-    const string =
-        'Rocket Lab cautiously optimistic about Neutron’s future in national security launch'
-
-    // console.log(string.indexOf('about'))
-    // console.log(string.lastIndexOf('cautiously'))
-
-    console.log(
-        string.slice(
-            string.indexOf(search),
-            string.indexOf(search) + search.length
-        )
-    )
-
-    if (articles.length > 0) {
-        console.log(articles)
-        const data = articles.map(({ title }) =>
-            console.log(title.toLowerCase().indexOf('china'))
-        )
-        console.log(data)
-    }
-
-    // if (articles.length > 0) {
-    //     console.log(articles)
-    //     const data = articles.filter(({ title }) =>
-    //         title
-    //             .toLowerCase()
-    //             .slice(
-    //                 title.indexOf(search),
-    //                 title.indexOf(search) + search.length
-    //             )
-    //     )
-    //     console.log(data)
-    // }
-
     useEffect(() => {
-        const searchProps: IApiProps = {
-            search,
+        const searchProps: Pick<IApiProps, '_limit'> = {
             _limit: itemsPerPage,
         }
 
-        if (search === '') {
-            setArticles([])
-            dispatch(resultPerPage(0))
-        }
-
-        const getDataApi = async (searchProps: IApiProps) => {
-            if (searchProps.search === '') {
-                return
-            }
-
+        const getDataApi = async (searchProps: Pick<IApiProps, '_limit'>) => {
             const data = await getApiArticlesSearch(searchProps)
+
+            console.log(data)
 
             if (data && data.length > 0) {
                 setArticles(data)
-                dispatch(resultPerPage(data.length))
             }
         }
         getDataApi(searchProps)
-    }, [dispatch, itemsPerPage, search])
+    }, [dispatch, itemsPerPage])
 
     return (
-        <>
+        <Box>
             {articles && articles.length > 0 && (
                 <MultiActionAreaCard articles={articles} />
             )}
-        </>
+            <Filter articles={articles} />
+        </Box>
     )
 }

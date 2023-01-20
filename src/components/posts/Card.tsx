@@ -8,20 +8,26 @@ import { FC } from 'react'
 import { IArticles } from 'types/props'
 import { StyledBox } from './style/StyledBox'
 import { StyledReadMoreIcon, StyledCalendarIcon } from './style/StyledIcons'
-import { isModalOpen } from 'redux/statusAppSlice/statusAppSlice'
-import { useDispatch } from 'react-redux'
+import { isModalToggler } from 'redux/statusAppSlice/statusAppSlice'
+import { useSelector, useDispatch } from 'react-redux'
 import { Box } from 'theme/Box'
 import moment from 'moment'
+import Highlighter from 'react-highlight-words'
+import { selectSearch } from 'redux/selectors/selectSearch'
+import { articleId } from 'redux/statusAppSlice/statusAppSlice'
 
 interface IProps {
     articles: IArticles[]
 }
 
 export const MultiActionAreaCard: FC<IProps> = ({ articles }) => {
+    const { search } = useSelector(selectSearch)
     const dispatch = useDispatch()
+    const searchWords = search.split(' ')
 
     const handleClick = (id: number) => {
-        dispatch(isModalOpen())
+        dispatch(articleId(id))
+        dispatch(isModalToggler())
     }
 
     return (
@@ -29,7 +35,11 @@ export const MultiActionAreaCard: FC<IProps> = ({ articles }) => {
             {articles.map(({ id, imageUrl, title, summary, publishedAt }) => {
                 return (
                     <Card
-                        sx={{ maxWidth: 400 }}
+                        sx={{
+                            maxWidth: 400,
+                            boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.05)',
+                            borderRadius: '5px',
+                        }}
                         key={id}
                         onClick={() => handleClick(id)}
                     >
@@ -75,9 +85,16 @@ export const MultiActionAreaCard: FC<IProps> = ({ articles }) => {
                                             '0px 4px 4px rgba(0, 0, 0, 0.25);',
                                     }}
                                 >
-                                    {title.length > 100
-                                        ? title.slice(0, 100) + '...'
-                                        : title}
+                                    <Highlighter
+                                        highlightClassName="YourHighlightClass"
+                                        searchWords={searchWords}
+                                        autoEscape={true}
+                                        textToHighlight={
+                                            title.length > 100
+                                                ? title.slice(0, 100) + '...'
+                                                : title
+                                        }
+                                    />
                                 </Typography>
                                 <Typography
                                     variant="body2"
@@ -92,9 +109,16 @@ export const MultiActionAreaCard: FC<IProps> = ({ articles }) => {
                                         color: '#363636',
                                     }}
                                 >
-                                    {summary.length > 100
-                                        ? summary.slice(0, 100) + '...'
-                                        : summary}
+                                    <Highlighter
+                                        highlightClassName="YourHighlightClass"
+                                        searchWords={searchWords}
+                                        autoEscape={true}
+                                        textToHighlight={
+                                            summary.length > 100
+                                                ? summary.slice(0, 100) + '...'
+                                                : summary
+                                        }
+                                    />
                                 </Typography>
                             </CardContent>
                         </CardActionArea>

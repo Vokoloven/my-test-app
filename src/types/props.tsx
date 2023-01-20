@@ -5,8 +5,8 @@ export type PropsChildren = {
 }
 
 export interface IApiProps {
-    search: string
     _limit: number
+    articleId: number
 }
 
 export interface IArticles {

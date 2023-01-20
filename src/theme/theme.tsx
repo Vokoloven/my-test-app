@@ -5,6 +5,7 @@ interface Theme {
     colors: {
         main: string
         additional: string
+        white: string
     }
 }
 
@@ -15,5 +16,6 @@ export const theme: Theme = {
     colors: {
         main: '#363636',
         additional: '#575757',
+        white: '#fff',
     },
 }
